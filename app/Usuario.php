@@ -20,4 +20,5 @@ class Usuario extends Model
             get: fn (string $nombre, string $apellidos) => ucfirst($nombre) . ucfirst($apellidos),
         );
     }
+
 }

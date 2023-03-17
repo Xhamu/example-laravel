@@ -10,6 +10,8 @@
 
 <body>
     <h1>Pagina index usuarios</h1>
+    <a href="/usuarios/crear"><button>Crear usuario</button></a>
+
 </body>
 
 </html>

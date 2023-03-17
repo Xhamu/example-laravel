@@ -21,5 +21,7 @@ Route::get('/usuarios', [UsuarioController::class, 'index']);
 
 Route::get('/usuarios/crear', [UsuarioController::class, 'crear']);
 
+//Post crear usuario
+
 Route::get('/usuarios/{id}', [UsuarioController::class, 'mostrar'])
     ->where('id', '[0-9]+');
