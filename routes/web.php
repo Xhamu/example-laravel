@@ -17,11 +17,12 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', HomeController::class);
 
-Route::get('/usuarios', [UsuarioController::class, 'index']);
+Route::get('/usuarios', [UsuarioController::class, 'index'])->name('usuarios.index');
 
-Route::get('/usuarios/crear', [UsuarioController::class, 'crear']);
+Route::get('/usuarios/crear', [UsuarioController::class, 'crear'])->name('usuarios.crear');
 
-//Post crear usuario
+Route::post('/usuarios', [UsuarioController::class, 'add']);
 
 Route::get('/usuarios/{id}', [UsuarioController::class, 'mostrar'])
-    ->where('id', '[0-9]+');
+    ->where('id', '[0-9]+')
+    ->name('usuarios.mostrar');

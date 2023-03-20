@@ -3,30 +3,39 @@
 @section('titulo', 'Listado de usuarios')
 
 @section('content')
-<h1>{{ $titulo }}</h1>
-
-<table class="table table-hover">
-  <thead>
-    <tr>
-      <th>Nombre</th>
-      <th>Email</th>
-      <th>Fecha</th>
-    </tr>
-  </thead>
-  @forelse ($usuarios as $user)
-    <tbody>
-        <tr>
-            <td>{{ $user->nombre }}</td>
-            <td><a href="mailto:{{ $user->email }}">{{ $user->email }}</a></td>
-            <td>{{ $user->fecha }}</td>
-            @empty
-            <td>No hay usuarios registrados.</td>
-            @endforelse
+    <h1>{{ $titulo }}</h1>
+    <a href="/usuarios/crear"><button>Crear nuevo usuario</button></a>
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th>Nombre</th>
+                <th>Email</th>
+                <th>Fecha</th>
+                <th>Profesión</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        @forelse ($usuarios as $user)
+            <tbody>
+                <tr>
+                    <td>{{ $user['nombre'] }}</td>
+                    <td><a href="mailto:{{ $user->email }}">{{ $user['email'] }}</a></td>
+                    <td>{{ $user['fecha'] }}</td>
+                    <td>{{ $user['id_profesion'] }}</td>
+                    <td><a href="/usuarios/{{ $user['id'] }}">Mostrar</a>
+                        <br />
+                        <a href="/usuarios/edit/{{ $user['id'] }}">Editar</a>
+                        <br />
+                        <a href="/usuarios/delete/{{ $user['id'] }}">Borrar</a>
+                    </td>
+                @empty
+                    <td>No hay usuarios registrados.</td>
+        @endforelse
         </tr>
-    </tbody>
-</table>
+        </tbody>
+    </table>
 @endsection
 
 @section('sidebar')
-@parent
+    @parent
 @endsection

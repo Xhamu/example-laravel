@@ -15,9 +15,6 @@ class UsuarioSeeder extends Seeder
      */
     public function run(): void
     {
-
-        $idProfesion = Profesion::where('titulo', 'ISmGqCL3lU')->value('id');
-
         //Usuario::create([
         //  'nombre' => Str::random(5),
         //  'apellidos' => Str::random(10),
