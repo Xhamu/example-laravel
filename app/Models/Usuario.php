@@ -15,7 +15,7 @@ class Usuario extends Model
 
     public $fillable = ['nombre', 'apellidos', 'email'];
 
-    protected $dates = ['deleted_at'];
+    protected $dates = ['fecha'];
 
     protected function nombreCompleto(): Attribute
     {

@@ -19,13 +19,7 @@ class UsuarioSeeder extends Seeder
             'nombre' => Str::random(5),
             'apellidos' => Str::random(10),
             'email' => Str::random(5). '@gmail.com',
+            'fecha' => date('2020-10-04'),
         ]);
-
-         
-        //DB::table('usuarios')->insert([
-          //  'nombre' => Str::random(5),
-            //'apellidos' => Str::random(10),
-            //'email' => Str::random(5). '@gmail.com',
-        //]);
     }
 }
