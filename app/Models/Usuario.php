@@ -1,6 +1,6 @@
 <?php
 
-namespace App;
+namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -22,6 +22,10 @@ class Usuario extends Model
         return Attribute::make(
             get: fn (string $nombre, string $apellidos) => ucfirst($nombre) . ucfirst($apellidos),
         );
+    }
+
+    public function profesion() {
+        return $this->belongsTo(Profesion::class);
     }
 
 }

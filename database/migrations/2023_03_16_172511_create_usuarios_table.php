@@ -17,7 +17,6 @@ class CreateUsuariosTable extends Migration
             $table->increments('id');
             
             $table->string('nombre');
-            $table->string('apellidos');   
             $table->string('email')->unique();
             
             $table->softDeletes();
