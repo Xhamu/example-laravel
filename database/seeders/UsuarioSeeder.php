@@ -26,6 +26,6 @@ class UsuarioSeeder extends Seeder
         //  'id_profesion' => $idProfesion,
         //]);
 
-        Usuario::factory()->count(50)->create();
+        Usuario::factory()->count(25)->create();
     }
 }

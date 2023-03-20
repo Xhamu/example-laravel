@@ -25,7 +25,7 @@ class Usuario extends Model
     }
 
     public function profesion() {
-        return $this->belongsTo(Profesion::class);
+        return $this->hasOne(Profesion::class, 'id');
     }
 
 }

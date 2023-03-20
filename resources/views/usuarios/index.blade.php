@@ -1,6 +1,6 @@
 @extends('layout')
 
-@section('titulo', 'Usuarios')
+@section('titulo', 'Listado de usuarios')
 
 @section('content')
 <h1>{{ $titulo }}</h1>
@@ -8,13 +8,13 @@
 <table class="table table-hover">
   <thead>
     <tr>
-      <th scope="col">Nombre</th>
-      <th scope="col">Email</th>
-      <th scope="col">Fecha</th>
+      <th>Nombre</th>
+      <th>Email</th>
+      <th>Fecha</th>
     </tr>
   </thead>
+  @forelse ($usuarios as $user)
     <tbody>
-        @forelse ($usuarios as $user)
         <tr>
             <td>{{ $user->nombre }}</td>
             <td><a href="mailto:{{ $user->email }}">{{ $user->email }}</a></td>

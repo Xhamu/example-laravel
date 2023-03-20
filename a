@@ -1,0 +1,65 @@
+[90m= [39m[34;4mIlluminate\Database\Eloquent\Collection[39;24m {#4668
+    [34mall[39m: [
+      [34;4mApp\Models\Profesion[39;24m {#4670
+        [34mid[39m: [35m1[39m,
+        [34mtitulo[39m: "[32mSuscipit neque qui.[39m",
+        [34mcreated_at[39m: "[32m2023-03-20 12:09:32[39m",
+        [34mupdated_at[39m: "[32m2023-03-20 12:09:32[39m",
+      },
+      [34;4mApp\Models\Profesion[39;24m {#4671
+        [34mid[39m: [35m2[39m,
+        [34mtitulo[39m: "[32mEt autem molestias.[39m",
+        [34mcreated_at[39m: "[32m2023-03-20 12:09:32[39m",
+        [34mupdated_at[39m: "[32m2023-03-20 12:09:32[39m",
+      },
+      [34;4mApp\Models\Profesion[39;24m {#4672
+        [34mid[39m: [35m3[39m,
+        [34mtitulo[39m: "[32mDolore a quidem.[39m",
+        [34mcreated_at[39m: "[32m2023-03-20 12:09:32[39m",
+        [34mupdated_at[39m: "[32m2023-03-20 12:09:32[39m",
+      },
+      [34;4mApp\Models\Profesion[39;24m {#4673
+        [34mid[39m: [35m4[39m,
+        [34mtitulo[39m: "[32mDelectus dolorum in.[39m",
+        [34mcreated_at[39m: "[32m2023-03-20 12:09:32[39m",
+        [34mupdated_at[39m: "[32m2023-03-20 12:09:32[39m",
+      },
+      [34;4mApp\Models\Profesion[39;24m {#4674
+        [34mid[39m: [35m5[39m,
+        [34mtitulo[39m: "[32mIste consectetur consequuntur.[39m",
+        [34mcreated_at[39m: "[32m2023-03-20 12:09:32[39m",
+        [34mupdated_at[39m: "[32m2023-03-20 12:09:32[39m",
+      },
+      [34;4mApp\Models\Profesion[39;24m {#4675
+        [34mid[39m: [35m6[39m,
+        [34mtitulo[39m: "[32mAperiam aut veniam.[39m",
+        [34mcreated_at[39m: "[32m2023-03-20 12:09:32[39m",
+        [34mupdated_at[39m: "[32m2023-03-20 12:09:32[39m",
+      },
+      [34;4mApp\Models\Profesion[39;24m {#4676
+        [34mid[39m: [35m7[39m,
+        [34mtitulo[39m: "[32mEt modi cumque.[39m",
+        [34mcreated_at[39m: "[32m2023-03-20 12:09:32[39m",
+        [34mupdated_at[39m: "[32m2023-03-20 12:09:32[39m",
+      },
+      [34;4mApp\Models\Profesion[39;24m {#4677
+        [34mid[39m: [35m8[39m,
+        [34mtitulo[39m: "[32mDistinctio esse facilis.[39m",
+        [34mcreated_at[39m: "[32m2023-03-20 12:09:32[39m",
+        [34mupdated_at[39m: "[32m2023-03-20 12:09:32[39m",
+      },
+      [34;4mApp\Models\Profesion[39;24m {#4678
+        [34mid[39m: [35m9[39m,
+        [34mtitulo[39m: "[32mReprehenderit sunt eum.[39m",
+        [34mcreated_at[39m: "[32m2023-03-20 12:09:32[39m",
+        [34mupdated_at[39m: "[32m2023-03-20 12:09:32[39m",
+      },
+      [34;4mApp\Models\Profesion[39;24m {#4679
+        [34mid[39m: [35m10[39m,
+        [34mtitulo[39m: "[32mTemporibus dicta ab.[39m",
+        [34mcreated_at[39m: "[32m2023-03-20 12:09:32[39m",
+        [34mupdated_at[39m: "[32m2023-03-20 12:09:32[39m",
+      },
+    ],
+  }
+
