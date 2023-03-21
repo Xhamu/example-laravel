@@ -12,8 +12,7 @@ class Usuario extends Model
     use HasFactory;
 
     use SoftDeletes;
-
-    public $fillable = ['nombre', 'apellidos', 'email'];
+    protected $fillable = ['nombre', 'email', 'fecha', 'id_profesion'];
 
     protected $dates = ['fecha'];
 
@@ -24,12 +23,8 @@ class Usuario extends Model
         );
     }
 
-    public function profesion() {
+    public function profesion()
+    {
         return $this->hasOne(Profesion::class, 'id');
     }
-
-    public function getTituloProfesion() {
-        return $this->hasOne(Profesion::class, 'id_profesion', 'titulo');
-    }
-
 }

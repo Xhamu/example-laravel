@@ -1,15 +1,50 @@
 @extends('layout')
 
-@section('title', "Usuario {{ $usuario->id }}")
-
 @section('content')
-    <br />
-    <br />
-    <br />
-    <h1>Usuario ID: {{ $usuario->id }}</h1>
-    <p>Nombre: {{ $usuario->nombre }}</p>
-    <p>Email: {{ $usuario->email }}</p>
-    <p>Fecha: {{ $usuario->fecha }}</p>
-    <p>Profesion: {{ $usuario->titulo }}</p>
-    <p><a href="/usuarios">Volver al listado de usuarios</a></p>
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <div class="card">
+                    <div class="card-header">
+                        <h1 class="card-title">Usuario ID: {{ $usuario->id }}</h1>
+                    </div>
+                    <div class="card-body">
+                        <div class="form-group row">
+                            <label for="nombre" class="col-md-4 col-form-label text-md-right">Nombre:</label>
+                            <div class="col-md-6">
+                                <p class="form-control-plaintext">{{ $usuario->nombre }}</p>
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label for="email" class="col-md-4 col-form-label text-md-right">Correo Electrónico:</label>
+                            <div class="col-md-6">
+                                <p class="form-control-plaintext">{{ $usuario->email }}</p>
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label for="fecha" class="col-md-4 col-form-label text-md-right">Fecha de Nacimiento:</label>
+                            <div class="col-md-6">
+                                <p class="form-control-plaintext">{{ $usuario->fecha }}</p>
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label for="id_profesion" class="col-md-4 col-form-label text-md-right">Profesión:</label>
+                            <div class="col-md-6">
+                                <p class="form-control-plaintext">{{ $usuario->titulo }}</p>
+                            </div>
+                        </div>
+
+                        <div class="form-group row mb-0">
+                            <div class="col-md-6 offset-md-4">
+                                <a href="/usuarios" class="btn btn-secondary">Volver al Listado de Usuarios</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 @endsection

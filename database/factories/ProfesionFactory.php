@@ -14,10 +14,12 @@ class ProfesionFactory extends Factory
      *
      * @return array<string, mixed>
      */
+
+
     public function definition(): array
     {
         return [
-            'titulo' => fake()->sentence(3, false),
+            'titulo' => fake()->sentence(1, false),
         ];
     }
 }
