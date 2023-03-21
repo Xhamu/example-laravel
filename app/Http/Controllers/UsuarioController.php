@@ -9,16 +9,28 @@ use Illuminate\Validation\Rule;
 
 class UsuarioController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
         $titulo = 'Listado de usuarios';
 
         $usuarios = Usuario::leftJoin('profesions', 'profesions.id', '=', 'usuarios.id_profesion')
             ->select('usuarios.id', 'usuarios.nombre', 'usuarios.email', 'usuarios.fecha', 'profesions.titulo')
+            ->when($request->has('nombre'), function ($query) use ($request) {
+                return $query->where('usuarios.nombre', 'like', '%' . $request->query('nombre') . '%');
+            })
+            ->when($request->has('email'), function ($query) use ($request) {
+                return $query->where('usuarios.email', 'like', '%' . $request->query('email') . '%');
+            })
+            ->when($request->has('profesion'), function ($query) use ($request) {
+                return $query->whereIn('usuarios.id_profesion', $request->query('profesion'));
+            })
             ->get();
 
-        return view('usuarios.index', compact('titulo', 'usuarios'));
+        $profesiones = Profesion::all();
+
+        return view('usuarios.index', compact('titulo', 'usuarios', 'profesiones'));
     }
+
 
     public function crear()
     {
@@ -65,7 +77,7 @@ class UsuarioController extends Controller
             'id_profesion' => (int) $data['id_profesion'],
         ]);
 
-        return redirect()->route('usuarios.index', ['status' => 'success']);
+        return redirect()->route('usuarios.index');
     }
 
     public function editar($id)
@@ -109,7 +121,7 @@ class UsuarioController extends Controller
 
         $usuario->update($data);
 
-        return redirect()->route('usuarios.index', ['status' => 'success']);
+        return redirect()->route('usuarios.index');
     }
 
     public function delete($id)
@@ -120,8 +132,19 @@ class UsuarioController extends Controller
             return view('errores.404');
         }
 
-        $usuario->delete();
+        if ($usuario->delete()) {
+            $mensaje = 'Se ha borrado el usuario ' . $usuario->nombre;
+            $status = 'success';
+        } else {
+            $mensaje = 'Se ha producido un error al eliminar el usuario.';
+            $status = 'error';
+        }
 
-        return redirect()->route('usuarios.index', ['status' => 'success']);
+        return view('usuarios.index', [
+            'titulo' => 'Listado de usuarios',
+            'usuarios' => Usuario::all(),
+            'mensaje' => $mensaje,
+            'status' => $status,
+        ]);
     }
 }
