@@ -1,6 +1,12 @@
 @extends('layout')
 
 @section('content')
+
+    @isset($status)
+        <div class="alert alert-success">
+            <p class="">Usuario {{ $mensaje }}</p>
+        </div>
+    @endisset
     <div class="container">
         <h1>{{ $titulo }}</h1>
         <a href="/usuarios/crear"><button>Crear nuevo usuario</button></a>
@@ -24,17 +30,17 @@
                         <td>{{ $usuario->fecha }}</td>
                         <td>{{ $usuario->titulo }}</td>
                         <td>
-                            <a href="/usuarios/{{ $usuario['id'] }}" class="btn btn-sm btn-outline-primary"><i
-                                    class="bi bi-eye"></i> Mostrar</a>
-                            <a href="/usuarios/editar/{{ $usuario['id'] }}" class="btn btn-sm btn-outline-warning"><i
-                                    class="bi bi-pencil"></i> Editar</a>
+                            <a href="/usuarios/{{ $usuario['id'] }}" class="btn btn-xl btn-outline-primary"><i
+                                    class="bi bi-eye"></i></a>
+                            <a href="/usuarios/editar/{{ $usuario['id'] }}" class="btn btn-xl btn-outline-success"><i
+                                    class="bi bi-pencil"></i></a>
                             <form action="/usuarios/delete/{{ $usuario['id'] }}" method="POST"
                                 style="display: inline-block;">
                                 @csrf
                                 @method('DELETE')
-                                <button type="submit" class="btn btn-sm btn-outline-danger"
+                                <button type="submit" class="btn btn-xl btn-outline-danger"
                                     onclick="return confirm('¿Está seguro de eliminar este usuario?')"><i
-                                        class="bi bi-trash"></i> Borrar</button>
+                                        class="bi bi-trash"></i></button>
                             </form>
                         </td>
                     </tr>

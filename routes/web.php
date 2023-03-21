@@ -33,3 +33,7 @@ Route::get('/usuarios/editar/{id}', [UsuarioController::class, 'editar'])
 Route::put('/usuarios/update/{id}', [UsuarioController::class, 'update'])
     ->where('id', '[0-9]+')
     ->name('usuarios.update');
+
+Route::delete('/usuarios/delete/{id}', [UsuarioController::class, 'delete'])
+    ->where('id', '[0-9]+')
+    ->name('usuarios.delete');

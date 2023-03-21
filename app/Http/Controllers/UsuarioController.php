@@ -17,7 +17,6 @@ class UsuarioController extends Controller
             ->select('usuarios.id', 'usuarios.nombre', 'usuarios.email', 'usuarios.fecha', 'profesions.titulo')
             ->get();
 
-
         return view('usuarios.index', compact('titulo', 'usuarios'));
     }
 
@@ -66,7 +65,7 @@ class UsuarioController extends Controller
             'id_profesion' => (int) $data['id_profesion'],
         ]);
 
-        return redirect()->route('usuarios.index');
+        return redirect()->route('usuarios.index', ['status' => 'success']);
     }
 
     public function editar($id)
@@ -84,8 +83,14 @@ class UsuarioController extends Controller
         return view('usuarios.editar', compact('titulo', 'usuario', 'profesiones'));
     }
 
-    public function update(Usuario $usuario)
+    public function update($id)
     {
+        $usuario = Usuario::find($id);
+
+        if (is_null($usuario)) {
+            return view('errores.404');
+        }
+
         $data = request()->validate([
             'nombre' => 'required',
             'email' => ['required', 'email', Rule::unique('usuarios')->ignore($usuario->id)],
@@ -98,12 +103,25 @@ class UsuarioController extends Controller
             'email.unique' => 'Ya existe un usuario con ese email.',
             'fecha.required' => 'El campo fecha es obligatorio.',
             'fecha.date' => 'Debe ser una fecha válida.',
-            'id_profesion.required' => 'El campo id_profesion es obligatorio.',
+            'id_profesion.required' => 'El campo profesion es obligatorio.',
             'id_profesion.exists' => 'La profesión seleccionada no existe.'
         ]);
 
         $usuario->update($data);
 
-        return redirect()->route('usuarios.index');
+        return redirect()->route('usuarios.index', ['status' => 'success']);
+    }
+
+    public function delete($id)
+    {
+        $usuario = Usuario::find($id);
+
+        if (is_null($usuario)) {
+            return view('errores.404');
+        }
+
+        $usuario->delete();
+
+        return redirect()->route('usuarios.index', ['status' => 'success']);
     }
 }
