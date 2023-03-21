@@ -58,7 +58,8 @@ class UsuarioController extends Controller
             'nombre' => 'required',
             'email' => ['required', 'email', 'unique:usuarios,email'],
             'fecha' => 'required|date',
-            'id_profesion' => 'required|exists:profesions,id'
+            'id_profesion' => 'required|exists:profesions,id',
+            'password' => 'required|min:6'
         ], [
             'nombre.required' => 'El campo es obligatorio.',
             'email.required' => 'El campo es obligatorio.',
@@ -67,7 +68,9 @@ class UsuarioController extends Controller
             'fecha.required' => 'El campo es obligatorio.',
             'fecha.date' => 'Debe ser una fecha válida.',
             'id_profesion.required' => 'El campo es obligatorio.',
-            'id_profesion.exists' => 'La profesión seleccionada no existe.'
+            'id_profesion.exists' => 'La profesión seleccionada no existe.',
+            'password.required' => 'El campo es obligatorio.',
+            'password.min' => 'La contraseña debe tener al menos :min caracteres.'
         ]);
 
         Usuario::create([
@@ -75,10 +78,12 @@ class UsuarioController extends Controller
             'email' => $data['email'],
             'fecha' => $data['fecha'],
             'id_profesion' => (int) $data['id_profesion'],
+            'password' => bcrypt($data['password']),
         ]);
 
         return redirect()->route('usuarios.index');
     }
+
 
     public function editar($id)
     {
@@ -107,7 +112,8 @@ class UsuarioController extends Controller
             'nombre' => 'required',
             'email' => ['required', 'email', Rule::unique('usuarios')->ignore($usuario->id)],
             'fecha' => 'required|date',
-            'id_profesion' => 'required|exists:profesions,id'
+            'id_profesion' => 'required|exists:profesions,id',
+            'password' => 'nullable|min:6'
         ], [
             'nombre.required' => 'El campo nombre es obligatorio.',
             'email.required' => 'El campo email es obligatorio.',
@@ -116,13 +122,21 @@ class UsuarioController extends Controller
             'fecha.required' => 'El campo fecha es obligatorio.',
             'fecha.date' => 'Debe ser una fecha válida.',
             'id_profesion.required' => 'El campo profesion es obligatorio.',
-            'id_profesion.exists' => 'La profesión seleccionada no existe.'
+            'id_profesion.exists' => 'La profesión seleccionada no existe.',
+            'password.min' => 'La contraseña debe tener al menos 6 caracteres'
         ]);
+
+        if (!empty($data['password'])) {
+            $data['password'] = bcrypt($data['password']);
+        } else {
+            unset($data['password']);
+        }
 
         $usuario->update($data);
 
         return redirect()->route('usuarios.index');
     }
+
 
     public function delete($id)
     {

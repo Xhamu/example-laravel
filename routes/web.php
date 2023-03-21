@@ -2,6 +2,8 @@
 
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\UsuarioController;
+use App\Http\Controllers\Auth\LoginController;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -15,25 +17,36 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', HomeController::class);
+Route::get('/login', [LoginController::class, 'showLoginForm'])->name('login');
 
-Route::get('/usuarios', [UsuarioController::class, 'index'])->name('usuarios.index');
+Route::get('/user', function () {
+    return Auth::user();
+});
 
-Route::get('/usuarios/crear', [UsuarioController::class, 'crear'])->name('usuarios.crear');
-Route::post('/usuarios', [UsuarioController::class, 'add'])->name('usuarios.add');
+Route::post('/login', [LoginController::class, 'login'])->name('login.post');
 
-Route::get('/usuarios/{id}', [UsuarioController::class, 'mostrar'])
-    ->where('id', '[0-9]+')
-    ->name('usuarios.mostrar');
+Route::group(['middleware' => 'auth'], function () {
 
-Route::get('/usuarios/editar/{id}', [UsuarioController::class, 'editar'])
-    ->where('id', '[0-9]+')
-    ->name('usuarios.editar');
+    Route::get('/', HomeController::class);
 
-Route::put('/usuarios/update/{id}', [UsuarioController::class, 'update'])
-    ->where('id', '[0-9]+')
-    ->name('usuarios.update');
+    Route::get('/usuarios', [UsuarioController::class, 'index'])->name('usuarios.index');
 
-Route::delete('/usuarios/delete/{id}', [UsuarioController::class, 'delete'])
-    ->where('id', '[0-9]+')
-    ->name('usuarios.delete');
+    Route::get('/usuarios/crear', [UsuarioController::class, 'crear'])->name('usuarios.crear');
+    Route::post('/usuarios', [UsuarioController::class, 'add'])->name('usuarios.add');
+
+    Route::get('/usuarios/{id}', [UsuarioController::class, 'mostrar'])
+        ->where('id', '[0-9]+')
+        ->name('usuarios.mostrar');
+
+    Route::get('/usuarios/editar/{id}', [UsuarioController::class, 'editar'])
+        ->where('id', '[0-9]+')
+        ->name('usuarios.editar');
+
+    Route::put('/usuarios/update/{id}', [UsuarioController::class, 'update'])
+        ->where('id', '[0-9]+')
+        ->name('usuarios.update');
+
+    Route::delete('/usuarios/delete/{id}', [UsuarioController::class, 'delete'])
+        ->where('id', '[0-9]+')
+        ->name('usuarios.delete');
+});

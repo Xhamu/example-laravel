@@ -31,6 +31,15 @@
                         </div>
 
                         <div class="form-group">
+                            <label for="fecha">Contraseña</label>
+                            <input type="password" name="password" id="password" placeholder="-" value=""
+                                class="form-control">
+                            @if ($errors->has('password'))
+                                <p class="small text-danger">{{ $errors->first('password') }}</p>
+                            @endif
+                        </div>
+
+                        <div class="form-group">
                             <label for="fecha">Fecha nacimiento</label>
                             <input type="date" name="fecha" id="fecha" value="{{ old('fecha') }}"
                                 class="form-control">

@@ -21,6 +21,7 @@ class UsuarioFactory extends Factory
             'email' => fake()->unique()->safeEmail(),
             'fecha' => fake()->date(),
             'id_profesion' => random_int(1, 9),
+            'password' => bcrypt('abc123'),
         ];
     }
 }

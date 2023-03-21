@@ -1,11 +1,14 @@
 <?php
 
+use App\Models\Usuario;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
 class CreateUsuariosTable extends Migration
 {
+    protected $model = Usuario::class;
+
     /**
      * Run the migrations.
      *
@@ -17,11 +20,13 @@ class CreateUsuariosTable extends Migration
             $table->increments('id');
             $table->string('nombre');
             $table->string('email')->unique();
+            $table->string('password');
             $table->unsignedBigInteger('id_profesion');
             $table->softDeletes();
             $table->timestamps();
         });
     }
+
 
     /**
      * Reverse the migrations.
