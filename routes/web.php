@@ -49,4 +49,6 @@ Route::group(['middleware' => 'auth'], function () {
     Route::delete('/usuarios/delete/{id}', [UsuarioController::class, 'delete'])
         ->where('id', '[0-9]+')
         ->name('usuarios.delete');
+
+    Route::get('/logout', [LoginController::class, 'logout'])->name('logout');
 });

@@ -24,7 +24,7 @@
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="navbar-text">
-            admin
+            Bienvenido, {{ session('nombre') }}
         </div>
     </nav>
 
