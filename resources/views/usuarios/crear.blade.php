@@ -23,13 +23,13 @@
         @endif
         <br />
         <label for="fecha">Fecha nacimiento</label>
-        <input type="date" name="fecha" id="fecha" placeholder="2020-10-23" value="{{ old('fecha') }}">
+        <input type="date" name="fecha" id="fecha" value="{{ old('fecha') }}">
         @if ($errors->has('fecha'))
             <p class="small text-danger">{{ $errors->first('fecha') }}</p>
         @endif
         <br />
-        <label for="profesion">Profesión</label>
-        <select name="profesion" id="profesion">
+        <label for="id_profesion">Profesión</label>
+        <select name="id_profesion" id="id_profesion">
             <option selected value="">-- seleccione --</option>
             @foreach ($profesion as $p)
                 <option value="{{ $p->id }}">{{ $p->titulo }}</option>

@@ -28,4 +28,8 @@ class Usuario extends Model
         return $this->hasOne(Profesion::class, 'id');
     }
 
+    public function getTituloProfesion() {
+        return $this->hasOne(Profesion::class, 'id_profesion', 'titulo');
+    }
+
 }

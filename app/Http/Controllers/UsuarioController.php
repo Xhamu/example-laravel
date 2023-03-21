@@ -12,10 +12,12 @@ class UsuarioController extends Controller
     {
         $titulo = 'Listado de usuarios';
 
-        $usuarios = Usuario::all();
-        $profesions = Profesion::all();
+        $usuarios = Usuario::leftJoin('profesions', 'profesions.id', '=', 'usuarios.id_profesion')
+            ->select('usuarios.id', 'usuarios.nombre', 'usuarios.email', 'usuarios.fecha', 'profesions.titulo')
+            ->get();
 
-        return view('usuarios.index', compact('titulo', 'usuarios', 'profesions'));
+
+        return view('usuarios.index', compact('titulo', 'usuarios'));
     }
 
     public function crear()
@@ -27,16 +29,19 @@ class UsuarioController extends Controller
 
     public function mostrar($id)
     {
-        $usuario = Usuario::find($id);
+        $usuario = Usuario::leftJoin('profesions', 'profesions.id', '=', 'usuarios.id_profesion')
+            ->select('usuarios.id', 'usuarios.nombre', 'usuarios.email', 'usuarios.fecha', 'profesions.titulo')
+            ->find($id);
 
-        if(is_null($usuario)) {
+        if (is_null($usuario)) {
             return view('errores.404');
         }
 
         return view('usuarios.mostrar', compact('usuario'));
     }
 
-    public function add() {
+    public function add()
+    {
 
         $data = request()->validate([
             'nombre' => 'required',
@@ -49,17 +54,17 @@ class UsuarioController extends Controller
             'email.unique' => 'Ya existe un usuario con ese email.'
         ]);
 
-        var_dump($data);
-
         Usuario::create([
             'nombre' => $data['nombre'],
             'email' => $data['email'],
             'fecha' => $data['fecha'],
-            'id_profesion' => $data['profesion'],
+            'id_profesion' => (int)$data['profesion'],
         ]);
 
-        
+        //return header('Location: /usuarios');
 
         return redirect()->route('usuarios.index');
     }
 }
+
+// Optimiza este codigo para que funcione, deberia añadir un nuevo usuario a traves de un formulario por metodo post. Muestra los cambios hechos.
