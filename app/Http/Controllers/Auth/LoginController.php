@@ -20,7 +20,7 @@ class LoginController extends Controller
         $this->validate($request, [
             'email' => 'required|email',
             'password' => 'required|min:6',
-        ] , [
+        ], [
             'email.required' => 'Campo de email obligatorio.',
             'email.email' => 'Debe ser un email válido.',
             'password.required' => 'Campo contraseña obligatorio.',

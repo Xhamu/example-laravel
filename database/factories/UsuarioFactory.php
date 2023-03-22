@@ -20,7 +20,7 @@ class UsuarioFactory extends Factory
             'nombre' => fake()->name(),
             'email' => fake()->unique()->safeEmail(),
             'fecha' => fake()->date(),
-            'id_profesion' => random_int(1, 9),
+            'id_profesion' => random_int(1, 10),
             'password' => bcrypt('abc123'),
         ];
     }
