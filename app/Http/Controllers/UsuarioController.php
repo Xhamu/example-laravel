@@ -166,4 +166,18 @@ class UsuarioController extends Controller
 
         return redirect()->route('usuarios.index')->with($status, $mensaje);
     }
+
+    public function pedidos($id)
+    {
+        $usuario = Usuario::find($id);
+
+        $pedidos = Order::with('products')->where('user_id', $id)->get();
+
+
+        if (is_null($usuario)) {
+            return view('errores.404');
+        }
+
+        return view('usuarios.pedidos', compact('pedidos', 'usuario'));
+    }
 }

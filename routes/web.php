@@ -20,16 +20,15 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/login', [LoginController::class, 'showLoginForm'])->name('login');
 
-Route::get('/user', function () {
-    return Auth::user();
-});
-
 Route::post('/login', [LoginController::class, 'login'])->name('login.post');
 
 Route::group(['middleware' => 'auth'], function () {
 
     Route::get('/', HomeController::class);
     Route::get('/logout', [LoginController::class, 'logout'])->name('logout');
+    Route::get('/user', function () {
+        return Auth::user();
+    });
 
     Route::get('/usuarios', [UsuarioController::class, 'index'])->name('usuarios.index');
 
@@ -52,8 +51,11 @@ Route::group(['middleware' => 'auth'], function () {
         ->where('id', '[0-9]+')
         ->name('usuarios.delete');
 
+    Route::get('/usuarios/{id}/pedidos', [UsuarioController::class, 'pedidos'])
+        ->where('id', '[0-9]+')
+        ->name('usuarios.pedidos');
+
+        
+
     Route::get('/productos', [ProductController::class, 'index'])->name('products.index');
-    Route::get('/productos/{producto}/edit', [ProductController::class, 'edit'])->name('productos.edit');
-    Route::put('/productos/{producto}', [ProductController::class, 'update'])->name('productos.update');
-    Route::delete('/productos/{producto}', [ProductController::class, 'destroy'])->name('productos.destroy');
 });

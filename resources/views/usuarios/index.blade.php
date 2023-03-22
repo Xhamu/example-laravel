@@ -43,11 +43,10 @@
             <div class="row mt-3">
                 <div class="col-md-12">
                     <a href="/usuarios/crear" class="btn btn-primary mb-3">Crear nuevo usuario</a>
-                    <table class="table table-striped table-hover">
+                    <table class="table table-striped table-hover table-bordered text-center border-dark">
                         <thead>
                             <tr>
                                 <th>Nombre</th>
-                                <th>Email</th>
                                 <th>Profesión</th>
                                 <th>Pedidos</th>
                                 <th>Acciones</th>
@@ -57,18 +56,15 @@
                             @foreach ($usuarios as $usuario)
                                 <tr>
                                     <td>{{ $usuario->nombre }}</td>
-                                    <td>{{ $usuario->email }}</td>
                                     <td>{{ $usuario->titulo }}</td>
                                     <td>
-                                        <ul>
-                                            @foreach ($usuario->pedidos as $pedido)
-                                                @if (empty($pedido->name))
-                                                    <li>Sin pedidos</li>
-                                                @else
-                                                    <li>{{ $pedido->name }}</li>
-                                                @endif
-                                            @endforeach
-                                        </ul>
+                                        @if ($usuario->pedidos->count() > 0)
+                                            <a class="btn btn-secondary"
+                                                href="{{ route('usuarios.pedidos', ['id' => $usuario->id]) }}">Ver
+                                                pedidos</a>
+                                        @else
+                                            <p><b>Sin pedidos</b></p>
+                                        @endif
                                     </td>
                                     <td>
                                         <a href="/usuarios/{{ $usuario['id'] }}" class="btn btn-outline-primary"><i

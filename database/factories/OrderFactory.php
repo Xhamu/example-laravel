@@ -12,8 +12,8 @@ class OrderFactory extends Factory
     public function definition()
     {
         return [
-            'user_id' => \App\Models\Usuario::factory(),
-            'product_id' => \App\Models\Product::factory(),
+            'user_id' => random_int(1, 25),
+            'product_id' => random_int(1, 20),
         ];
     }
 }
