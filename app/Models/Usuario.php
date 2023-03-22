@@ -29,6 +29,11 @@ class Usuario extends Model implements Authenticatable
         return $this->hasOne(Profesion::class, 'id');
     }
 
+    public function orders()
+    {
+        return $this->hasMany(Order::class);
+    }
+
     /**
      * Get the name of the unique identifier for the user.
      *

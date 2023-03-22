@@ -32,7 +32,7 @@
 
                         <div class="form-group">
                             <label for="fecha">Contraseña</label>
-                            <input type="password" name="password" id="password" placeholder="-" value=""
+                            <input type="password" name="password" id="password" placeholder="" value=""
                                 class="form-control">
                             @if ($errors->has('password'))
                                 <p class="small text-danger">{{ $errors->first('password') }}</p>

@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\UsuarioController;
+use App\Http\Controllers\ProductController;
 use App\Http\Controllers\Auth\LoginController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -28,6 +29,7 @@ Route::post('/login', [LoginController::class, 'login'])->name('login.post');
 Route::group(['middleware' => 'auth'], function () {
 
     Route::get('/', HomeController::class);
+    Route::get('/logout', [LoginController::class, 'logout'])->name('logout');
 
     Route::get('/usuarios', [UsuarioController::class, 'index'])->name('usuarios.index');
 
@@ -50,5 +52,8 @@ Route::group(['middleware' => 'auth'], function () {
         ->where('id', '[0-9]+')
         ->name('usuarios.delete');
 
-    Route::get('/logout', [LoginController::class, 'logout'])->name('logout');
+    Route::get('/productos', [ProductController::class, 'index'])->name('products.index');
+    Route::get('/productos/{producto}/edit', [ProductController::class, 'edit'])->name('productos.edit');
+    Route::put('/productos/{producto}', [ProductController::class, 'update'])->name('productos.update');
+    Route::delete('/productos/{producto}', [ProductController::class, 'destroy'])->name('productos.destroy');
 });

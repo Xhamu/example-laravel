@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Order;
 use App\Models\Profesion;
 use App\Models\Usuario;
 use Illuminate\Http\Request;
@@ -27,6 +28,15 @@ class UsuarioController extends Controller
             ->get();
 
         $profesiones = Profesion::all();
+
+        foreach ($usuarios as $usuario) {
+            $pedidos = Order::leftJoin('products', 'products.id', '=', 'orders.product_id')
+                ->select('orders.id', 'products.name', 'orders.created_at')
+                ->where('orders.user_id', '=', $usuario->id)
+                ->get();
+
+            $usuario->pedidos = $pedidos;
+        }
 
         return view('usuarios.index', compact('titulo', 'usuarios', 'profesiones'));
     }
@@ -123,7 +133,7 @@ class UsuarioController extends Controller
             'fecha.date' => 'Debe ser una fecha válida.',
             'id_profesion.required' => 'El campo profesion es obligatorio.',
             'id_profesion.exists' => 'La profesión seleccionada no existe.',
-            'password.min' => 'La contraseña debe tener al menos 6 caracteres'
+            'password.min' => 'La contraseña debe tener al menos :min caracteres'
         ]);
 
         if (!empty($data['password'])) {
@@ -154,11 +164,6 @@ class UsuarioController extends Controller
             $status = 'error';
         }
 
-        return view('usuarios.index', [
-            'titulo' => 'Listado de usuarios',
-            'usuarios' => Usuario::all(),
-            'mensaje' => $mensaje,
-            'status' => $status,
-        ]);
+        return redirect()->route('usuarios.index')->with($status, $mensaje);
     }
 }

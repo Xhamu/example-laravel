@@ -1,11 +1,18 @@
 @extends('layout')
 
 @section('content')
-    @isset($status)
-        <div class="alert alert-{{ $status == 'success' ? 'success' : 'danger' }}">
-            <p>{{ $mensaje }}</p>
+    @if (session('success'))
+        <div class="col-lg-12 col-6 alert alert-success">
+            {{ session('success') }}
         </div>
-    @endisset
+    @endif
+
+    @if (session('error'))
+        <div class="col-lg-12 col-6 alert alert-danger">
+            {{ session('error') }}
+        </div>
+    @endif
+
     <div class="container">
         <h1>{{ $titulo }}</h1>
         <form method="GET" action="{{ route('usuarios.index') }}">
@@ -39,22 +46,30 @@
                     <table class="table table-striped table-hover">
                         <thead>
                             <tr>
-                                <th>ID</th>
                                 <th>Nombre</th>
                                 <th>Email</th>
-                                <th>Fecha</th>
                                 <th>Profesión</th>
+                                <th>Pedidos</th>
                                 <th>Acciones</th>
                             </tr>
                         </thead>
                         <tbody>
                             @foreach ($usuarios as $usuario)
                                 <tr>
-                                    <td>{{ $usuario->id }}</td>
                                     <td>{{ $usuario->nombre }}</td>
                                     <td>{{ $usuario->email }}</td>
-                                    <td>{{ \Carbon\Carbon::parse($usuario->fecha)->format('d-m-Y') }}</td>
                                     <td>{{ $usuario->titulo }}</td>
+                                    <td>
+                                        <ul>
+                                            @foreach ($usuario->pedidos as $pedido)
+                                                @if (empty($pedido->name))
+                                                    <li>Sin pedidos</li>
+                                                @else
+                                                    <li>{{ $pedido->name }}</li>
+                                                @endif
+                                            @endforeach
+                                        </ul>
+                                    </td>
                                     <td>
                                         <a href="/usuarios/{{ $usuario['id'] }}" class="btn btn-outline-primary"><i
                                                 class="bi bi-eye"></i></a>

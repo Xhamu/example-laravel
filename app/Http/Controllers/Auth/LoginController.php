@@ -19,7 +19,12 @@ class LoginController extends Controller
     {
         $this->validate($request, [
             'email' => 'required|email',
-            'password' => 'required',
+            'password' => 'required|min:6',
+        ] , [
+            'email.required' => 'Campo de email obligatorio.',
+            'email.email' => 'Debe ser un email válido.',
+            'password.required' => 'Campo contraseña obligatorio.',
+            'password.min' => 'Contraseña debe ser mayor a 6 caracteres.'
         ]);
 
         $credentials = $request->only('email', 'password');
@@ -29,7 +34,7 @@ class LoginController extends Controller
             session(['nombre' => $user->nombre]);
             return redirect('/');
         } else {
-            return back()->withErrors(['email' => 'Las credenciales no son válidas.'])->withInput($request->only('email'));
+            return back()->withErrors(['password' => 'Inicio de sesión incorrecto.'])->withInput($request->only('email'));
         }
     }
 

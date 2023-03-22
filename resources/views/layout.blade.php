@@ -17,15 +17,16 @@
 </head>
 
 <body>
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-secondary sticky-top">
         <a class="navbar-brand" href="/">Example Laravel</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
             aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
+            <span class="navbar-toggler-icon"> </span>
         </button>
-        <div class="navbar-text">
+        <div class="navbar-brand">
             Bienvenido, {{ session('nombre') }}
         </div>
+        <a class="btn btn-danger ml-auto" href="/logout"><i class="bi bi-box-arrow-right"></i></a>
     </nav>
 
     <div class="container-fluid">
@@ -37,31 +38,42 @@
                             <a class="nav-link" href="/usuarios">Usuarios</a>
                         </li>
                         <li class="nav-item">
+                            <a class="nav-link" href="/productos">Productos</a>
+                        </li>
+                        <li class="nav-item">
                             <a class="nav-link" href="/profesiones">Profesiones</a>
                         </li>
                     </ul>
                 </div>
             </nav>
+        </div>
+    </div>
 
-            <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
-                @yield('content')
-            </main>
+    <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
+        @yield('content')
+    </main>
 
-            <footer>
-                <div>
-                    <span>Page footer</span>
+    <br />
+    <footer class="bg-secondary text-white">
+        <div class="container py-3">
+            <div class="row">
+                <div class="col-md-12 text-center">
+                    <hr class="bg-light">
+                    <p>Example Laravel</p>
                 </div>
-            </footer>
+            </div>
+        </div>
+    </footer>
 
-            <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
-                integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous">
-            </script>
-            <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js"
-                integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous">
-            </script>
-            <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js"
-                integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous">
-            </script>
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous">
+    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js"
+        integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous">
+    </script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js"
+        integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous">
+    </script>
 </body>
 
 </html>
