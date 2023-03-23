@@ -29,7 +29,7 @@
 
     <div class="container-fluid">
         <div class="row">
-            <nav class="col-md-2 d-none d-md-block bg-light sidebar">
+            <nav class="col-3 col-md-2 d-none d-md-block bg-light sidebar">
                 <div class="sidebar-sticky">
                     <ul class="nav flex-column">
                         <li class="nav-item">
@@ -39,17 +39,17 @@
                             <a class="nav-link" href="/productos">Productos</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="/profesiones" disabled>Profesiones</a>
+                            <a class="nav-link disabled" href="/profesiones">Profesiones</a>
                         </li>
                     </ul>
                 </div>
             </nav>
+            
+            <main role="main" class="col-9 col-md-10 ml-sm-auto px-4">
+                @yield('content')
+            </main>
         </div>
     </div>
-
-    <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
-        @yield('content')
-    </main>
 
     <br />
     <footer class="bg-secondary text-white">
