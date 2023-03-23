@@ -6,28 +6,31 @@
     <table class="table table-striped table-hover table-bordered text-center border-dark">
         <thead>
             <tr>
-                <th>ID Pedido</th>
-                <th>ID Producto</th>
-                <th>Producto</th>
-                <th>Precio</th>
-                <th>Fecha de creación</th>
+                <th class="border border-dark">ID Pedido</th>
+                <th class="border border-dark">Producto</th>
+                <th class="border border-dark">Precio</th>
+                <th class="border border-dark">Fecha de pedido</th>
             </tr>
         </thead>
         <tbody>
             @foreach ($pedidos as $pedido)
                 <tr>
-                    <td>{{ $pedido->id }}</td>
-                    <td>{{ $pedido->product_id }}</td>
-                    <td>{{ $pedido->product->name }}</td>
-                    <td>{{ $pedido->product->price }}$</td>
-                    <td>{{ $pedido->created_at }}</td>
+                    <td class="border border-dark">{{ $pedido->id }}</td>
+                    <td class="border border-dark">{{ $pedido->product->name }}</td>
+                    <td class="border border-dark">{{ $pedido->product->price }}$</td>
+                    <td class="border border-dark">{{ Carbon\Carbon::parse($pedido->created_at)->format('d/m/Y H:i:s') }}</td>
+                    <img src="{{ asset('images/products/' . $pedido->product->image) }}" alt="{{ $pedido->product->name }}">
                 </tr>
             @endforeach
         </tbody>
         <tfoot>
             <tr>
-                <td colspan="3"></td>
-                <td colspan="1"><b>{{ $precioTotal }}$</b></td>
+                <td colspan="2" class="border border-dark"></td>
+                <td colspan="1" class="border border-dark"><b>Precio Total</b></td>
+            </tr>
+            <tr>
+                <td colspan="2" class="border border-dark"></td>
+                <td colspan="1" class="border border-dark"><b>{{ $precioTotal }}$</b></td>
             </tr>
         </tfoot>
     </table>
