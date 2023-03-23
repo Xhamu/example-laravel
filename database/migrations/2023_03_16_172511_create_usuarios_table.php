@@ -25,6 +25,7 @@ class CreateUsuariosTable extends Migration
             $table->softDeletes();
             $table->timestamps();
         });
+        
     }
 
 

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Order;
 use App\Models\Profesion;
+use App\Models\Role;
 use App\Models\Usuario;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
@@ -107,7 +108,9 @@ class UsuarioController extends Controller
 
         $profesiones = Profesion::all();
 
-        return view('usuarios.editar', compact('titulo', 'usuario', 'profesiones'));
+        $roles = Role::all();
+
+        return view('usuarios.editar', compact('titulo', 'usuario', 'profesiones', 'roles'));
     }
 
     public function update($id)
@@ -141,6 +144,9 @@ class UsuarioController extends Controller
         } else {
             unset($data['password']);
         }
+
+        $roles = Role::whereIn('id', request()->roles)->get();
+        $usuario->syncRoles($roles);
 
         $usuario->update($data);
 

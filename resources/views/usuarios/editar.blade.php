@@ -62,6 +62,20 @@
                             @endif
                         </div>
 
+                        <div class="form-group">
+                            <label for="rol">Rol:</label>
+                            <select name="rol" id="rol" class="form-control">
+                                @foreach ($roles as $rol)
+                                    <option value="{{ $rol->id }}"
+                                        {{ $usuario->id_profesion == $profesion->id ? 'selected' : '' }}>
+                                        {{ $rol->name }}</option>
+                                @endforeach
+                            </select>
+                            @if ($errors->has('rol'))
+                                <p class="small text-danger">{{ $errors->first('rol') }}</p>
+                            @endif
+                        </div>
+
                         <div class="form-group text-center">
                             <button type="submit" class="btn btn-primary">Guardar cambios</button>
                         </div>

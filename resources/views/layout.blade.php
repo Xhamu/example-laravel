@@ -23,9 +23,7 @@
             aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"> </span>
         </button>
-        <div class="navbar-brand">
-            Bienvenido, {{ session('nombre') }}
-        </div>
+        <div class="navbar-brand">Bienvenido, {{ session('nombre') }}</div>
         <a class="btn btn-danger ml-auto" href="/logout"><i class="bi bi-box-arrow-right"></i></a>
     </nav>
 

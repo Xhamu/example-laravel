@@ -8,7 +8,6 @@
                 <tr>
                     <th>ID</th>
                     <th>Nombre</th>
-                    <th>Descripción</th>
                     <th>Precio</th>
                     <th>Stock</th>
                     <th>Acciones</th>
@@ -19,7 +18,6 @@
                     <tr>
                         <td>{{ $producto->id }}</td>
                         <td>{{ $producto->name }}</td>
-                        <td>{{ $producto->description }}</td>
                         <td>{{ $producto->price }}</td>
                         <td>{{ $producto->stock }}</td>
                         <td>

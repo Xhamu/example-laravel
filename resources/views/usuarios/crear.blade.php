@@ -53,7 +53,8 @@
                             <select name="id_profesion" id="id_profesion" class="form-control">
                                 <option selected value="">-- seleccione --</option>
                                 @foreach ($profesions as $p)
-                                    <option value="{{ $p->id }}">{{ $p->titulo }}</option>
+                                    <option value="{{ $p->id }}" {{ old($p->id) ? 'selected' : '' }}>
+                                        {{ $p->titulo }}</option>
                                 @endforeach
                             </select>
                             @if ($errors->has('id_profesion'))
