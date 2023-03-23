@@ -12,7 +12,8 @@ class Profesion extends Model
 
     public $fillable = ['titulo'];
 
-    public function usuarios() {
+    public function usuarios()
+    {
         return $this->belongsTo(Usuario::class, 'id_profesion');
     }
 }

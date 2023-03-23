@@ -171,13 +171,16 @@ class UsuarioController extends Controller
     {
         $usuario = Usuario::find($id);
 
-        $pedidos = Order::with('products')->where('user_id', $id)->get();
-
+        $pedidos = Order::with('product')->where('user_id', $id)->get();
 
         if (is_null($usuario)) {
             return view('errores.404');
         }
 
-        return view('usuarios.pedidos', compact('pedidos', 'usuario'));
+        $precioTotal = $pedidos->sum(function ($pedido) {
+            return $pedido->product->price;
+        });
+
+        return view('usuarios.pedidos', compact('pedidos', 'usuario', 'precioTotal'));
     }
 }
