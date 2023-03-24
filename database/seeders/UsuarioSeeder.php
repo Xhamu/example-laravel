@@ -7,6 +7,8 @@ use App\Models\Usuario;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Str;
+use Spatie\Permission\Models\Permission;
+use Spatie\Permission\Models\Role;
 
 class UsuarioSeeder extends Seeder
 {
@@ -22,7 +24,18 @@ class UsuarioSeeder extends Seeder
         //  'fecha' => date('2020-10-04'),
         //  'id_profesion' => $idProfesion,
         //]);
+        Permission::create(['name' => 'create-users']);
+        Permission::create(['name' => 'edit-users']);
+        Permission::create(['name' => 'delete-users']);
 
-        Usuario::factory()->count(25)->create();
+        $adminRole = Role::create(['name' => 'admin']);
+        $editorRole = Role::create(['name' => 'editor']);
+
+        $adminRole->givePermissionTo(['create-users', 'edit-users', 'delete-users']);
+        $editorRole->givePermissionTo(['edit-users']);
+
+        Usuario::factory()->count(25)->create()->each(function ($user) use ($adminRole) {
+            $user->assignRole($adminRole);
+        });
     }
 }

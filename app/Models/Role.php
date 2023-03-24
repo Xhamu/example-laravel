@@ -4,15 +4,13 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Spatie\Permission\Traits\HasPermissions;
 use Spatie\Permission\Traits\HasRoles;
 
 class Role extends Model
 {
-    use HasFactory, HasPermissions, HasRoles;
-
-    public function users()
+    use HasFactory, HasRoles;
+    public function usuarios()
     {
-        return $this->belongsToMany(User::class);
+        return $this->belongsToMany(Usuario::class, 'role_usuario');
     }
 }

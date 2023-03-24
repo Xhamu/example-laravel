@@ -7,7 +7,9 @@ use App\Models\Profesion;
 use App\Models\Role;
 use App\Models\Usuario;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\Rule;
+
 
 class UsuarioController extends Controller
 {
@@ -39,7 +41,9 @@ class UsuarioController extends Controller
             $usuario->pedidos = $pedidos;
         }
 
-        return view('usuarios.index', compact('titulo', 'usuarios', 'profesiones'));
+        $usuarioActual = Auth::user();
+
+        return view('usuarios.index', compact('titulo', 'usuarios', 'profesiones', 'usuarioActual'));
     }
 
 
@@ -47,7 +51,9 @@ class UsuarioController extends Controller
     {
         $profesions = Profesion::all();
 
-        return view('usuarios.crear', compact('profesions'));
+        $roles = Role::all();
+
+        return view('usuarios.crear', compact('profesions', 'roles'));
     }
 
     public function mostrar($id)
@@ -60,7 +66,9 @@ class UsuarioController extends Controller
             return view('errores.404');
         }
 
-        return view('usuarios.mostrar', compact('usuario'));
+        $roleName = $usuario->roles->pluck('name')->implode(', ');
+
+        return view('usuarios.mostrar', compact('usuario', 'roleName'));
     }
 
     public function add()
@@ -70,7 +78,8 @@ class UsuarioController extends Controller
             'email' => ['required', 'email', 'unique:usuarios,email'],
             'fecha' => 'required|date',
             'id_profesion' => 'required|exists:profesions,id',
-            'password' => 'required|min:6'
+            'password' => 'required|min:6',
+            'roles' => 'required',
         ], [
             'nombre.required' => 'El campo es obligatorio.',
             'email.required' => 'El campo es obligatorio.',
@@ -81,16 +90,19 @@ class UsuarioController extends Controller
             'id_profesion.required' => 'El campo es obligatorio.',
             'id_profesion.exists' => 'La profesión seleccionada no existe.',
             'password.required' => 'El campo es obligatorio.',
-            'password.min' => 'La contraseña debe tener al menos :min caracteres.'
+            'password.min' => 'La contraseña debe tener al menos :min caracteres.',
+            'roles.required' => 'El campo es obligatorio.',
         ]);
 
-        Usuario::create([
+        $user = Usuario::create([
             'nombre' => $data['nombre'],
             'email' => $data['email'],
             'fecha' => $data['fecha'],
             'id_profesion' => (int) $data['id_profesion'],
             'password' => bcrypt($data['password']),
         ]);
+
+        $user->assignRole($data['roles']);
 
         return redirect()->route('usuarios.index');
     }
@@ -126,7 +138,8 @@ class UsuarioController extends Controller
             'email' => ['required', 'email', Rule::unique('usuarios')->ignore($usuario->id)],
             'fecha' => 'required|date',
             'id_profesion' => 'required|exists:profesions,id',
-            'password' => 'nullable|min:6'
+            'password' => 'nullable|min:6',
+            'roles' => 'required',
         ], [
             'nombre.required' => 'El campo nombre es obligatorio.',
             'email.required' => 'El campo email es obligatorio.',
@@ -136,7 +149,8 @@ class UsuarioController extends Controller
             'fecha.date' => 'Debe ser una fecha válida.',
             'id_profesion.required' => 'El campo profesion es obligatorio.',
             'id_profesion.exists' => 'La profesión seleccionada no existe.',
-            'password.min' => 'La contraseña debe tener al menos :min caracteres'
+            'password.min' => 'La contraseña debe tener al menos :min caracteres',
+            'roles.required' => 'El campo es obligatorio',
         ]);
 
         if (!empty($data['password'])) {
@@ -145,8 +159,9 @@ class UsuarioController extends Controller
             unset($data['password']);
         }
 
-        $roles = Role::whereIn('id', request()->roles)->get();
-        $usuario->syncRoles($roles);
+        $usuario->roles()->detach();
+
+        $usuario->assignRole($data['roles']);
 
         $usuario->update($data);
 

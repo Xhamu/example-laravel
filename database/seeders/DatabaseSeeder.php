@@ -20,14 +20,6 @@ class DatabaseSeeder extends Seeder
         //     'name' => 'Test User',
         //     'email' => 'test@example.com',
         // ]);
-        $adminRole = Role::create([
-            'name' => 'admin',
-            'guard_name' => 'admin'
-        ]);
-        $userRole = Role::create([
-            'name' => 'user',
-            'guard_name' => 'user'
-        ]);
         $this->call(UsuarioSeeder::class);
         $this->call(ProfesionSeeder::class);
         $this->call(ProductsSeeder::class);

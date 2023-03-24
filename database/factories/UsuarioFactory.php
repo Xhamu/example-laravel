@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\Usuario;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -23,5 +24,12 @@ class UsuarioFactory extends Factory
             'id_profesion' => random_int(1, 10),
             'password' => bcrypt('abc123'),
         ];
+    }
+
+    public function configure()
+    {
+        return $this->afterCreating(function (Usuario $user) {
+            $user->assignRole('admin');
+        });
     }
 }

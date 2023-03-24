@@ -40,6 +40,20 @@
                         </div>
 
                         <div class="form-group">
+                            <label for="roles">Rol:</label>
+                            <select name="roles" id="roles" class="form-control">
+                                <option selected value="">-- seleccione --</option>
+                                @foreach ($roles as $rol)
+                                    <option value="{{ $rol->id }}" {{ old($rol->id) ? 'selected' : '' }}>
+                                        {{ $rol->name }}</option>
+                                @endforeach
+                            </select>
+                            @if ($errors->has('roles'))
+                                <p class="small text-danger">{{ $errors->first('roles') }}</p>
+                            @endif
+                        </div>
+
+                        <div class="form-group">
                             <label for="fecha">Fecha nacimiento</label>
                             <input type="date" name="fecha" id="fecha" value="{{ old('fecha') }}"
                                 class="form-control">
@@ -49,7 +63,7 @@
                         </div>
 
                         <div class="form-group">
-                            <label for="id_profesion">Profesión</label>
+                            <label for="id_profesion">Profesión:</label>
                             <select name="id_profesion" id="id_profesion" class="form-control">
                                 <option selected value="">-- seleccione --</option>
                                 @foreach ($profesions as $p)
@@ -61,6 +75,7 @@
                                 <p class="small text-danger">{{ $errors->first('id_profesion') }}</p>
                             @endif
                         </div>
+
                         <div class="form-group text-center">
                             <button type="submit" class="btn btn-primary">Crear usuario</button>
                         </div>

@@ -42,13 +42,17 @@
             <a href="{{ route('usuarios.index') }}" class="btn btn-danger">Reiniciar Filtros</a>
             <div class="row mt-3">
                 <div class="col-md-12">
-                    <a href="/usuarios/crear" class="btn btn-primary mb-3">Crear nuevo usuario</a>
+                    @if ($usuarioActual->hasRole('admin'))
+                        <a href="/usuarios/crear" class="btn btn-primary mb-3">Crear nuevo usuario</a>
+                    @endif
                     <table class="table table-striped table-hover table-bordered text-center border-dark">
                         <thead>
                             <tr>
                                 <th>Nombre</th>
                                 <th>Profesión</th>
-                                <th>Pedidos</th>
+                                @if ($usuarioActual->hasRole('admin'))
+                                    <th>Pedidos</th>
+                                @endif
                                 <th>Acciones</th>
                             </tr>
                         </thead>
@@ -57,28 +61,36 @@
                                 <tr>
                                     <td>{{ $usuario->nombre }}</td>
                                     <td>{{ $usuario->titulo }}</td>
+                                    @if ($usuarioActual->hasRole('admin'))
+                                        <td>
+                                            @if ($usuario->pedidos->count() > 0)
+                                                <a class="btn btn-secondary"
+                                                    href="{{ route('usuarios.pedidos', ['id' => $usuario->id]) }}">Ver
+                                                    pedidos</a>
+                                            @else
+                                                <p><b>Sin pedidos</b></p>
+                                            @endif
+                                        </td>
+                                    @endif
                                     <td>
-                                        @if ($usuario->pedidos->count() > 0)
-                                            <a class="btn btn-secondary"
-                                                href="{{ route('usuarios.pedidos', ['id' => $usuario->id]) }}">Ver
-                                                pedidos</a>
-                                        @else
-                                            <p><b>Sin pedidos</b></p>
+                                        @if ($usuarioActual->hasRole('admin'))
+                                            <a href="/usuarios/{{ $usuario['id'] }}" class="btn btn-outline-primary"><i
+                                                    class="bi bi-eye"></i></a>
                                         @endif
-                                    </td>
-                                    <td>
-                                        <a href="/usuarios/{{ $usuario['id'] }}" class="btn btn-outline-primary"><i
-                                                class="bi bi-eye"></i></a>
-                                        <a href="/usuarios/editar/{{ $usuario['id'] }}" class="btn btn-outline-success"><i
-                                                class="bi bi-pencil"></i></a>
-                                        <form action="/usuarios/delete/{{ $usuario['id'] }}" method="POST"
-                                            style="display: inline-block;">
-                                            @csrf
-                                            @method('DELETE')
-                                            <button type="submit" class="btn btn-xl btn-outline-danger"
-                                                onclick="return confirm('¿Está seguro de eliminar a {{ $usuario->nombre }} - {{ $usuario->email }}?')"><i
-                                                    class="bi bi-trash"></i></button>
-                                        </form>
+                                        @if ($usuarioActual->hasRole('editor') || $usuarioActual->hasRole('admin'))
+                                            <a href="/usuarios/editar/{{ $usuario['id'] }}"
+                                                class="btn btn-outline-success"><i class="bi bi-pencil"></i></a>
+                                        @endif
+                                        @if ($usuarioActual->hasRole('admin'))
+                                            <form action="/usuarios/delete/{{ $usuario['id'] }}" method="POST"
+                                                style="display: inline-block;">
+                                                @csrf
+                                                @method('DELETE')
+                                                <button type="submit" class="btn btn-xl btn-outline-danger"
+                                                    onclick="return confirm('¿Está seguro de eliminar a {{ $usuario->nombre }} - {{ $usuario->email }}?')"><i
+                                                        class="bi bi-trash"></i></button>
+                                            </form>
+                                        @endif
                                     </td>
                                 </tr>
                             @endforeach

@@ -32,8 +32,7 @@
 
                         <div class="form-group">
                             <label for="fecha">Contraseña</label>
-                            <input type="password" name="password" id="password" value=""
-                                class="form-control">
+                            <input type="password" name="password" id="password" value="" class="form-control">
                             @if ($errors->has('password'))
                                 <p class="small text-danger">{{ $errors->first('password') }}</p>
                             @endif
@@ -63,18 +62,19 @@
                         </div>
 
                         <div class="form-group">
-                            <label for="rol">Rol:</label>
-                            <select name="rol" id="rol" class="form-control">
-                                @foreach ($roles as $rol)
-                                    <option value="{{ $rol->id }}"
-                                        {{ $usuario->id_profesion == $profesion->id ? 'selected' : '' }}>
-                                        {{ $rol->name }}</option>
-                                @endforeach
-                            </select>
-                            @if ($errors->has('rol'))
-                                <p class="small text-danger">{{ $errors->first('rol') }}</p>
-                            @endif
+                            <label for="roles">Roles:</label>
+                            @foreach ($roles as $role)
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="roles[]"
+                                        id="role_{{ $role->id }}" value="{{ $role->id }}"
+                                        {{ $usuario->hasRole($role->name) ? 'checked' : '' }}>
+                                    <label class="form-check-label" for="role_{{ $role->id }}">
+                                        {{ $role->name }}
+                                    </label>
+                                </div>
+                            @endforeach
                         </div>
+
 
                         <div class="form-group text-center">
                             <button type="submit" class="btn btn-primary">Guardar cambios</button>
