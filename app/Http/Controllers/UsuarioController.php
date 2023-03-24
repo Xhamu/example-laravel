@@ -29,7 +29,8 @@ class UsuarioController extends Controller
             ->when($request->has('profesion'), function ($query) use ($request) {
                 return $query->whereIn('usuarios.id_profesion', $request->query('profesion'));
             })
-            ->paginate(7);
+            ->paginate(7)
+            ->withQueryString();
 
         foreach ($usuarios as $usuario) {
             $pedidos = Order::leftJoin('products', 'products.id', '=', 'orders.product_id')

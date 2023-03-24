@@ -38,16 +38,24 @@
                 </select>
             </div>
 
-            <button type="submit" class="btn btn-primary"> Filtrar </button>
-            <a href="{{ route('usuarios.index') }}" class="btn btn-danger">Reiniciar Filtros</a>
+            <div class="d-flex justify-content-between">
+                <div>
+                    <button type="submit" class="btn btn-primary">Filtrar</button>
+                    <a href="{{ route('usuarios.index') }}" class="btn btn-danger">Reiniciar Filtros</a>
+                </div>
+                <div>
+                    @if ($usuarioActual->hasRole('admin'))
+                        <a href="/usuarios/crear" class="btn btn-primary">Crear nuevo usuario</a>
+                    @endif
+                </div>
+            </div>
+
             <div class="row mt-3">
                 <div class="col-md-12">
-                    @if ($usuarioActual->hasRole('admin'))
-                        <a href="/usuarios/crear" class="btn btn-primary mb-3">Crear nuevo usuario</a>
-                    @endif
                     <table class="table table-striped table-hover table-bordered text-center border-dark">
                         <thead>
                             <tr>
+                                <th>ID Usuario</th>
                                 <th>Nombre</th>
                                 <th>Profesión</th>
                                 @if ($usuarioActual->hasRole('admin'))
@@ -59,6 +67,7 @@
                         <tbody>
                             @foreach ($usuarios as $usuario)
                                 <tr>
+                                    <td>{{ $usuario->id }}</td>
                                     <td>{{ $usuario->nombre }}</td>
                                     <td>{{ $usuario->titulo }}</td>
                                     @if ($usuarioActual->hasRole('admin'))
