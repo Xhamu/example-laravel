@@ -32,12 +32,16 @@ Route::group(['middleware' => 'auth'], function () {
 
     Route::get('/usuarios', [UsuarioController::class, 'index'])->name('usuarios.index');
 
-    Route::get('/usuarios/crear', [UsuarioController::class, 'crear'])->name('usuarios.crear');
-    Route::post('/usuarios', [UsuarioController::class, 'add'])->name('usuarios.add');
+    Route::get('/usuarios/crear', [UsuarioController::class, 'crear'])->name('usuarios.crear')
+        ->middleware('role:admin');
+
+    Route::post('/usuarios', [UsuarioController::class, 'add'])->name('usuarios.add')
+        ->middleware('role:admin');
 
     Route::get('/usuarios/{id}', [UsuarioController::class, 'mostrar'])
         ->where('id', '[0-9]+')
-        ->name('usuarios.mostrar');
+        ->name('usuarios.mostrar')
+        ->middleware('role:admin');
 
     Route::get('/usuarios/editar/{id}', [UsuarioController::class, 'editar'])
         ->where('id', '[0-9]+')
@@ -49,13 +53,14 @@ Route::group(['middleware' => 'auth'], function () {
 
     Route::delete('/usuarios/delete/{id}', [UsuarioController::class, 'delete'])
         ->where('id', '[0-9]+')
-        ->name('usuarios.delete');
+        ->name('usuarios.delete')
+        ->middleware('role:admin');
 
     Route::get('/usuarios/{id}/pedidos', [UsuarioController::class, 'pedidos'])
         ->where('id', '[0-9]+')
-        ->name('usuarios.pedidos');
+        ->name('usuarios.pedidos')
+        ->middleware('role:admin');
 
-        
 
     Route::get('/productos', [ProductController::class, 'index'])->name('products.index');
 });

@@ -69,12 +69,11 @@
                                         id="role_{{ $role->id }}" value="{{ $role->id }}"
                                         {{ $usuario->hasRole($role->name) ? 'checked' : '' }}>
                                     <label class="form-check-label" for="role_{{ $role->id }}">
-                                        {{ $role->name }}
+                                        {{ ucfirst($role->name) }}
                                     </label>
                                 </div>
                             @endforeach
                         </div>
-
 
                         <div class="form-group text-center">
                             <button type="submit" class="btn btn-primary">Guardar cambios</button>
