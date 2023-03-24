@@ -99,5 +99,24 @@
                 </div>
             </div>
         </form>
+        <div style="display: flex; justify-content: center; align-items: center;">
+            <nav aria-label="Page navigation example">
+                <ul class="pagination">
+                    @if ($usuarios->currentPage() > 1)
+                        <li class="page-item"><a class="page-link" href="{{ $usuarios->previousPageUrl() }}">Anterior</a>
+                        </li>
+                    @endif
+
+                    @for ($i = 1; $i <= $usuarios->lastPage(); $i++)
+                        <li class="page-item @if ($i == $usuarios->currentPage()) active @endif"><a class="page-link"
+                                href="{{ $usuarios->url($i) }}">{{ $i }}</a></li>
+                    @endfor
+
+                    @if ($usuarios->currentPage() < $usuarios->lastPage())
+                        <li class="page-item"><a class="page-link" href="{{ $usuarios->nextPageUrl() }}">Siguiente</a></li>
+                    @endif
+                </ul>
+            </nav>
+        </div>
     </div>
 @endsection

@@ -10,12 +10,13 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\Rule;
 
-
 class UsuarioController extends Controller
 {
     public function index(Request $request)
     {
         $titulo = 'Listado de usuarios';
+
+        $profesiones = Profesion::all();
 
         $usuarios = Usuario::leftJoin('profesions', 'profesions.id', '=', 'usuarios.id_profesion')
             ->select('usuarios.id', 'usuarios.nombre', 'usuarios.email', 'usuarios.fecha', 'profesions.titulo')
@@ -28,9 +29,7 @@ class UsuarioController extends Controller
             ->when($request->has('profesion'), function ($query) use ($request) {
                 return $query->whereIn('usuarios.id_profesion', $request->query('profesion'));
             })
-            ->get();
-
-        $profesiones = Profesion::all();
+            ->paginate(7);
 
         foreach ($usuarios as $usuario) {
             $pedidos = Order::leftJoin('products', 'products.id', '=', 'orders.product_id')
