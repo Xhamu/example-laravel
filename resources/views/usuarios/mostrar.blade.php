@@ -26,7 +26,8 @@
                         <div class="form-group row">
                             <label for="fecha" class="col-md-4 col-form-label text-md-right">Fecha de Nacimiento:</label>
                             <div class="col-md-6">
-                                <p class="form-control-plaintext">{{ \Carbon\Carbon::parse($usuario->fecha)->format('d-m-Y') }}</p>
+                                <p class="form-control-plaintext">
+                                    {{ \Carbon\Carbon::parse($usuario->fecha)->format('d-m-Y') }}</p>
                             </div>
                         </div>
 
@@ -44,7 +45,7 @@
                             </div>
                         </div>
 
-                        
+
 
                         <div class="form-group row mb-0">
                             <div class="col-md-6 offset-md-4">

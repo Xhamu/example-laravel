@@ -9,7 +9,6 @@
 
 
     @if (!empty($pedidos[0]))
-        <h1>El usuario no tiene pedidos</h1>
         <table class="table table-striped table-hover table-bordered text-center border-dark">
             <thead>
                 <tr>

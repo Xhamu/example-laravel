@@ -52,22 +52,28 @@
 
             <div class="row mt-3">
                 <div class="col-md-12">
-                    <table class="table table-striped table-hover table-bordered text-center border-dark">
+                    <table class="table table-hover table-bordered text-center border-dark">
                         <thead>
                             <tr>
                                 <th>ID Usuario
-                                    <a href="{{ route('usuarios.index', ['sort' => 'id']) }}"><i class="bi bi-arrow-up"></i></a>
-                                    <a href="{{ route('usuarios.index', ['sort' => '-id']) }}"><i class="bi bi-arrow-down"></i></a>
+                                    <a href="{{ route('usuarios.index', ['sort' => 'id']) }}"><i
+                                            class="bi bi-arrow-up"></i></a>
+                                    <a href="{{ route('usuarios.index', ['sort' => '-id']) }}"><i
+                                            class="bi bi-arrow-down"></i></a>
                                 </th>
                                 <th>
                                     Nombre
-                                    <a href="{{ route('usuarios.index', ['sort' => 'nombre']) }}"><i class="bi bi-arrow-up"></i></a>
-                                    <a href="{{ route('usuarios.index', ['sort' => '-nombre']) }}"><i class="bi bi-arrow-down"></i></a>
+                                    <a href="{{ route('usuarios.index', ['sort' => 'nombre']) }}"><i
+                                            class="bi bi-arrow-up"></i></a>
+                                    <a href="{{ route('usuarios.index', ['sort' => '-nombre']) }}"><i
+                                            class="bi bi-arrow-down"></i></a>
                                 </th>
                                 <th>
                                     Profesión
-                                    <a href="{{ route('usuarios.index', ['sort' => 'titulo']) }}"><i class="bi bi-arrow-up"></i></a>
-                                    <a href="{{ route('usuarios.index', ['sort' => '-titulo']) }}"><i class="bi bi-arrow-down"></i></a>
+                                    <a href="{{ route('usuarios.index', ['sort' => 'titulo']) }}"><i
+                                            class="bi bi-arrow-up"></i></a>
+                                    <a href="{{ route('usuarios.index', ['sort' => '-titulo']) }}"><i
+                                            class="bi bi-arrow-down"></i></a>
                                 </th>
                                 @if ($usuarioActual->hasRole('admin'))
                                     <th>Pedidos</th>
@@ -78,7 +84,7 @@
 
                         <tbody>
                             @foreach ($usuarios as $usuario)
-                                <tr>
+                                <tr class="@if($usuarioActual->id === $usuario->id) ? alert alert-dark : @endif">
                                     <td>{{ $usuario->id }}</td>
                                     <td>{{ $usuario->nombre }}</td>
                                     <td>{{ $usuario->titulo }}</td>

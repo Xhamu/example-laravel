@@ -67,4 +67,10 @@ Route::group(['middleware' => 'auth'], function () {
     Route::fallback(function () {
         return view('errores.404');
     });
+
+    Route::get('/productos/crear', [ProductController::class, 'crear'])
+        ->name('products.crear')
+        ->middleware('role:admin');
+
+    Route::delete('/productos', [ProductController::class, 'delete'])->name('products.delete');
 });
