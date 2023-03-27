@@ -55,15 +55,27 @@
                     <table class="table table-striped table-hover table-bordered text-center border-dark">
                         <thead>
                             <tr>
-                                <th>ID Usuario</th>
-                                <th>Nombre</th>
-                                <th>Profesión</th>
+                                <th>ID Usuario
+                                    <a href="{{ route('usuarios.index', ['sort' => 'id']) }}"><i class="bi bi-arrow-up"></i></a>
+                                    <a href="{{ route('usuarios.index', ['sort' => '-id']) }}"><i class="bi bi-arrow-down"></i></a>
+                                </th>
+                                <th>
+                                    Nombre
+                                    <a href="{{ route('usuarios.index', ['sort' => 'nombre']) }}"><i class="bi bi-arrow-up"></i></a>
+                                    <a href="{{ route('usuarios.index', ['sort' => '-nombre']) }}"><i class="bi bi-arrow-down"></i></a>
+                                </th>
+                                <th>
+                                    Profesión
+                                    <a href="{{ route('usuarios.index', ['sort' => 'titulo']) }}"><i class="bi bi-arrow-up"></i></a>
+                                    <a href="{{ route('usuarios.index', ['sort' => '-titulo']) }}"><i class="bi bi-arrow-down"></i></a>
+                                </th>
                                 @if ($usuarioActual->hasRole('admin'))
                                     <th>Pedidos</th>
                                 @endif
                                 <th>Acciones</th>
                             </tr>
                         </thead>
+
                         <tbody>
                             @foreach ($usuarios as $usuario)
                                 <tr>

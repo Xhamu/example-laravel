@@ -18,6 +18,8 @@ class UsuarioController extends Controller
 
         $profesiones = Profesion::all();
 
+        $sort = $request->query('sort');
+
         $usuarios = Usuario::leftJoin('profesions', 'profesions.id', '=', 'usuarios.id_profesion')
             ->select('usuarios.id', 'usuarios.nombre', 'usuarios.email', 'usuarios.fecha', 'profesions.titulo')
             ->when($request->has('nombre'), function ($query) use ($request) {
@@ -28,6 +30,13 @@ class UsuarioController extends Controller
             })
             ->when($request->has('profesion'), function ($query) use ($request) {
                 return $query->whereIn('usuarios.id_profesion', $request->query('profesion'));
+            })
+            ->when($sort, function ($query) use ($sort) {
+                $column = ltrim($sort, '-');
+                $direction = $sort[0] == '-' ? 'desc' : 'asc';
+                return $query->orderBy($column, $direction);
+            }, function ($query) {
+                return $query->orderBy('usuarios.id', 'asc');
             })
             ->paginate(7)
             ->withQueryString();

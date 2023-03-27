@@ -63,4 +63,8 @@ Route::group(['middleware' => 'auth'], function () {
 
 
     Route::get('/productos', [ProductController::class, 'index'])->name('products.index');
+
+    Route::fallback(function () {
+        return view('errores.404');
+    });
 });
