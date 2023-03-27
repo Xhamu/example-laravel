@@ -30,6 +30,8 @@ Route::group(['middleware' => 'auth'], function () {
         return Auth::user();
     });
 
+
+    // USUARIOS
     Route::get('/usuarios', [UsuarioController::class, 'index'])->name('usuarios.index');
 
     Route::get('/usuarios/crear', [UsuarioController::class, 'crear'])->name('usuarios.crear')
@@ -61,16 +63,32 @@ Route::group(['middleware' => 'auth'], function () {
         ->name('usuarios.pedidos')
         ->middleware('role:admin');
 
-
+    // PRODUCTOS
     Route::get('/productos', [ProductController::class, 'index'])->name('products.index');
-
-    Route::fallback(function () {
-        return view('errores.404');
-    });
 
     Route::get('/productos/crear', [ProductController::class, 'crear'])
         ->name('products.crear')
         ->middleware('role:admin');
+    
+    Route::post('productos', [ProductController::class, 'add'])
+        ->name('products.add');
+
+    Route::get('/productos/{id}', [ProductController::class, 'mostrar'])
+        ->where('id', '[0-9]+')
+        ->name('products.mostrar')
+        ->middleware('role:admin');
+    
+    Route::get('/productos/editar/{id}', [ProductController::class, 'editar'])
+        ->where('id', '[0-9]+')
+        ->name('products.editar');
+
+    Route::put('/productos/update/{id}', [ProductController::class, 'update'])
+        ->where('id', '[0-9]+')
+        ->name('products.update');
 
     Route::delete('/productos', [ProductController::class, 'delete'])->name('products.delete');
+
+    Route::fallback(function () {
+        return view('errores.404');
+    });
 });
