@@ -10,7 +10,7 @@
                     <h1 class="card-title">Crear producto</h1>
                 </div>
                 <div class="card-body">
-                    <form method="post" action="/productos">
+                    <form method="post" action="/productos" enctype="multipart/form-data">
                         {{ csrf_field() }}
                         <div class="form-group">
                             <label for="name">Nombre</label>

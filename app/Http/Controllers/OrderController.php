@@ -4,29 +4,11 @@ namespace App\Http\Controllers;
 
 use App\Models\Order;
 use App\Models\Product;
-use Illuminate\Http\Request;
+use App\Models\Usuario;
 use Illuminate\Support\Facades\Auth;
 
 class OrderController extends Controller
 {
-    public function pedirProducto1($id)
-    {
-        $producto = Product::findOrFail($id);
-
-        if (is_null($producto)) {
-            return view('errores.404');
-        }
-
-        $usuario = Auth::user();
-
-        $pedido = new Order();
-        $pedido->product_id = $producto->id;
-        $pedido->user_id = $usuario->id;
-        $pedido->save();
-
-        return redirect()->route('products.index')->with('success', 'Producto pedido con éxito.');
-    }
-
     public function pedirProducto($id)
     {
         $producto = Product::findOrFail($id);
@@ -40,6 +22,11 @@ class OrderController extends Controller
             return redirect()->back()->withErrors(['cantidad' => 'No hay suficiente stock disponible.']);
         }
 
+        $saldoSuficiente = Auth::user()->saldo >= ($producto->price * $cantidad);
+        if (!$saldoSuficiente) {
+            return redirect()->back()->withErrors(['saldo' => 'No tienes suficiente saldo para realizar esta compra.']);
+        }
+
         $pedido = new Order();
         $pedido->product_id = $producto->id;
         $pedido->user_id = Auth::id();
@@ -48,6 +35,9 @@ class OrderController extends Controller
 
         $producto->stock -= $cantidad;
         $producto->save();
+
+        $user = Auth::user();
+        $user->updateBalance($producto->price * $cantidad);
 
         return redirect()->route('products.index')->with('success', 'Pedido realizado con éxito.');
     }

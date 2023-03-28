@@ -66,18 +66,21 @@
                                     <td>{{ $producto->price }}</td>
                                     <td>{{ $producto->stock }}</td>
                                     <td>
-                                        <a href="/productos/{{ $producto['id'] }}" class="btn btn-outline-primary">Pedir
-                                            producto</a>
+                                        @if ($usuarioActual->hasRole('editor') || $usuarioActual->hasRole('admin'))
+                                            <a href="/productos/{{ $producto['id'] }}"
+                                                class="btn btn-outline-primary">Pedir
+                                                producto</a>
+                                        @endif
                                         @if ($usuarioActual->hasRole('editor') || $usuarioActual->hasRole('admin'))
                                             <a href="/productos/editar/{{ $producto['id'] }}"
-                                                class="btn btn-outline-success"><i class="bi bi-pencil"></i></a>
+                                                class="btn btn-outline-success disabled"><i class="bi bi-pencil"></i></a>
                                         @endif
                                         @if ($usuarioActual->hasRole('admin'))
                                             <form action="/productos/delete/{{ $producto['id'] }}" method="POST"
                                                 style="display: inline-block;">
                                                 @csrf
                                                 @method('DELETE')
-                                                <button type="submit" class="btn btn-xl btn-outline-danger"
+                                                <button type="submit" class="btn btn-xl btn-outline-danger disabled"
                                                     onclick="return confirm('¿Está seguro de eliminar {{ $producto->name }}?')"><i
                                                         class="bi bi-trash"></i></button>
                                             </form>

@@ -12,7 +12,7 @@
         <table class="table table-striped table-hover table-bordered text-center border-dark">
             <thead>
                 <tr>
-                    <th class="border border-dark">Image</th>
+                    <th class="border border-dark">Imagen del producto</th>
                     <th class="border border-dark">ID Pedido</th>
                     <th class="border border-dark">Producto</th>
                     <th class="border border-dark">Precio</th>
@@ -23,7 +23,7 @@
             <tbody>
                 @foreach ($pedidos as $pedido)
                     <tr>
-                        <td class="border border-dark"><img src="{{ asset('images/products/' . $pedido->product->image) }}"
+                        <td class="border border-dark"><img width="200px" src="{{ asset('storage/' . $pedido->product->image) }}"
                                 alt="Example image"></td>
                         <td class="border border-dark">{{ $pedido->id }}</td>
                         <td class="border border-dark">{{ $pedido->product->name }}</td>

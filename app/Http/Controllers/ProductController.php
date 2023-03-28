@@ -22,8 +22,9 @@ class ProductController extends Controller
             }, function ($query) {
                 return $query->orderBy('id', 'asc');
             })
-            ->paginate(7)
-            ->withQueryString();
+            ->paginate(7);
+
+        $productos->appends(request()->query());
 
         $usuarioActual = Auth::user();
 
@@ -32,17 +33,21 @@ class ProductController extends Controller
 
     public function crear()
     {
+        $this->authorize('create', Product::class);
+
         return view('products.crear');
     }
 
     public function add()
     {
+        $this->authorize('create', Usuario::class);
+
         $data = request()->validate([
             'name' => 'required',
             'description' => 'required',
             'price' => ['required', 'numeric', 'min:0'],
             'stock' => ['required', 'numeric', 'min:1'],
-            'image' => ['required', 'mimes:png,jpg', 'max:2048'],
+            'image' => ['required', 'image', 'max:2048'],
         ], [
             'name.required' => 'El campo es obligatorio.',
             'description.required' => 'El campo es obligatorio.',
@@ -53,20 +58,23 @@ class ProductController extends Controller
             'stock.numeric' => 'Debe ser un número.',
             'stock.min' => 'No se puede crear un producto sin stock.',
             'image.required' => 'El campo es obligatorio.',
-            'image.mimes' => 'Debe ser un archivo de tipo png o jpg.',
+            'image.image' => 'Debe ser una imagen.',
             'image.max' => 'La imagen no debe ser mayor de 2048 KB.',
         ]);
 
+        $imagePath = request('image')->store('products', 'public');
+
         Product::create([
-            'nombre' => $data['name'],
-            'email' => $data['description'],
+            'name' => $data['name'],
+            'description' => $data['description'],
             'price' => (float) $data['price'],
             'stock' => (int) $data['stock'],
-            'image' => $data['image'],
+            'image' => $imagePath,
         ]);
 
         return redirect()->route('products.index');
     }
+
 
     public function mostrar($id)
     {

@@ -20,6 +20,7 @@ class UsuarioFactory extends Factory
         return [
             'nombre' => fake()->name(),
             'email' => fake()->unique()->safeEmail(),
+            'saldo'=> random_int(50, 5000),
             'fecha' => fake()->date(),
             'id_profesion' => random_int(1, 10),
             'password' => bcrypt('abc123'),

@@ -57,6 +57,8 @@ class UsuarioController extends Controller
 
     public function crear()
     {
+        $this->authorize('create', Usuario::class);
+        
         $profesions = Profesion::all();
 
         $roles = Role::all();
@@ -66,6 +68,9 @@ class UsuarioController extends Controller
 
     public function mostrar($id)
     {
+
+        $this->authorize('view', Usuario::class);
+
         $usuario = Usuario::leftJoin('profesions', 'profesions.id', '=', 'usuarios.id_profesion')
             ->select('usuarios.id', 'usuarios.nombre', 'usuarios.email', 'usuarios.fecha', 'profesions.titulo')
             ->find($id);
@@ -81,6 +86,8 @@ class UsuarioController extends Controller
 
     public function add()
     {
+        $this->authorize('create', Usuario::class);
+
         $data = request()->validate([
             'nombre' => 'required',
             'email' => ['required', 'email', 'unique:usuarios,email'],
@@ -114,7 +121,6 @@ class UsuarioController extends Controller
 
         return redirect()->route('usuarios.index');
     }
-
 
     public function editar($id)
     {
@@ -176,9 +182,10 @@ class UsuarioController extends Controller
         return redirect()->route('usuarios.index');
     }
 
-
     public function delete($id)
     {
+        $this->authorize('delete', Usuario::class);
+
         $usuario = Usuario::find($id);
 
         if (is_null($usuario)) {
@@ -198,6 +205,8 @@ class UsuarioController extends Controller
 
     public function pedidos($id)
     {
+        $this->authorize('view', Usuario::class);
+
         $usuario = Usuario::find($id);
 
         $pedidos = Order::with('product')->where('user_id', $id)->get();

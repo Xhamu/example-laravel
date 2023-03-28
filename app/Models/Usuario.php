@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Contracts\Auth\Access\Authorizable;
 use Illuminate\Contracts\Auth\Authenticatable;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -10,7 +11,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Notifications\Notifiable;
 use Spatie\Permission\Traits\HasRoles;
 
-class Usuario extends Model implements Authenticatable
+class Usuario extends Model implements Authenticatable, Authorizable
 {
     use HasFactory, Notifiable, HasRoles;
 
@@ -18,6 +19,12 @@ class Usuario extends Model implements Authenticatable
     protected $fillable = ['nombre', 'email', 'fecha', 'id_profesion', 'password'];
 
     protected $dates = ['fecha'];
+
+    public function updateBalance($amount)
+    {
+        $this->saldo -= $amount;
+        $this->save();
+    }
 
     protected function nombreCompleto(): Attribute
     {
@@ -100,5 +107,15 @@ class Usuario extends Model implements Authenticatable
     public function getRememberTokenName()
     {
         return 'remember_token';
+    }
+    /**
+     * Determine if the entity has a given ability.
+     *
+     * @param \Traversable|array|string $abilities
+     * @param array|mixed $arguments
+     * @return bool
+     */
+    public function can($abilities, $arguments = array())
+    {
     }
 }

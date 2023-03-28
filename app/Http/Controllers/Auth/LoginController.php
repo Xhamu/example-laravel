@@ -31,7 +31,10 @@ class LoginController extends Controller
 
         if (Auth::attempt($credentials)) {
             $user = Auth::user();
-            session(['nombre' => $user->nombre]);
+            session([
+                'nombre' => $user->nombre,
+                'saldo' => $user->saldo
+            ]);
             return redirect('/');
         } else {
             return back()->withErrors(['password' => 'Inicio de sesión incorrecto.'])->withInput($request->only('email'));
