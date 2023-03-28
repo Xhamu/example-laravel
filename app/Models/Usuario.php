@@ -11,12 +11,15 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Notifications\Notifiable;
 use Spatie\Permission\Traits\HasRoles;
 
+/**
+ * Summary of Usuario
+ */
 class Usuario extends Model implements Authenticatable, Authorizable
 {
     use HasFactory, Notifiable, HasRoles;
 
     use SoftDeletes;
-    protected $fillable = ['nombre', 'email', 'fecha', 'id_profesion', 'password'];
+    protected $fillable = ['nombre', 'email', 'saldo', 'fecha', 'id_profesion', 'password'];
 
     protected $dates = ['fecha'];
 
@@ -24,9 +27,11 @@ class Usuario extends Model implements Authenticatable, Authorizable
     {
         $this->saldo -= $amount;
         $this->save();
+
+        session()->put('saldo', $this->saldo);
     }
 
-    protected function nombreCompleto(): Attribute
+    public function nombreCompleto(): Attribute
     {
         return Attribute::make(
             get: fn (string $nombre, string $apellidos) => ucfirst($nombre) . ucfirst($apellidos),

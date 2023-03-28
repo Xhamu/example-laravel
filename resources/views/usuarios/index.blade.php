@@ -84,7 +84,7 @@
 
                         <tbody>
                             @foreach ($usuarios as $usuario)
-                                <tr class="@if($usuarioActual->id === $usuario->id) ? alert alert-dark : @endif">
+                                <tr class="@if ($usuarioActual->id === $usuario->id) ? alert alert-dark : @endif">
                                     <td>{{ $usuario->id }}</td>
                                     <td>{{ $usuario->nombre }}</td>
                                     <td>{{ $usuario->titulo }}</td>

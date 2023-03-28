@@ -58,7 +58,7 @@ class UsuarioController extends Controller
     public function crear()
     {
         $this->authorize('create', Usuario::class);
-        
+
         $profesions = Profesion::all();
 
         $roles = Role::all();

@@ -33,6 +33,8 @@ Route::group(['middleware' => 'auth'], function () {
 
 
     // USUARIOS
+    Route::get('/saldo', [UsuarioController::class, 'saldo']);
+
     Route::get('/usuarios', [UsuarioController::class, 'index'])->name('usuarios.index');
 
     Route::get('/usuarios/crear', [UsuarioController::class, 'crear'])->name('usuarios.crear');

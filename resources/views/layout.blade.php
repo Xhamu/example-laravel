@@ -24,7 +24,9 @@
             <span class="navbar-toggler-icon"> </span>
         </button>
         <div class="navbar-brand">Bienvenido, {{ session('nombre') }}</div>
-        <div class="navbar-brand ml-auto">Saldo: {{ session('saldo') }}</div>
+        @if (Auth::check() && session()->has('saldo'))
+            <div class="navbar-brand ml-auto">Saldo actual: {{ session('saldo') }}$</div>
+        @endif
         <a class="btn btn-danger ml-auto" href="/logout"><i class="bi bi-box-arrow-right"></i></a>
     </nav>
 
@@ -45,7 +47,7 @@
                     </ul>
                 </div>
             </nav>
-            
+
             <main role="main" class="col-9 col-md-10 ml-sm-auto px-4">
                 @yield('content')
             </main>
