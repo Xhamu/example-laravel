@@ -41,4 +41,12 @@ class OrderController extends Controller
 
         return redirect()->route('products.index')->with('success', 'Pedido realizado con éxito.');
     }
+
+    public function borrarPedidosUsuario($id)
+    {
+        $usuario = Usuario::findOrFail($id);
+        $usuario->orders()->delete();
+
+        return redirect()->back()->with('mensaje', 'Se han borrado todos los pedidos del usuario correctamente.');
+    }
 }

@@ -23,8 +23,8 @@
             <tbody>
                 @foreach ($pedidos as $pedido)
                     <tr>
-                        <td class="border border-dark"><img width="200px" src="{{ asset('storage/' . $pedido->product->image) }}"
-                                alt="Example image"></td>
+                        <td class="border border-dark"><img width="200px"
+                                src="{{ asset('storage/' . $pedido->product->image) }}" alt="Example image"></td>
                         <td class="border border-dark">{{ $pedido->id }}</td>
                         <td class="border border-dark">{{ $pedido->product->name }}</td>
                         <td class="border border-dark">{{ $pedido->product->price }}$</td>
@@ -46,5 +46,10 @@
                 </tr>
             </tfoot>
         </table>
+        <form action="{{ route('usuarios.pedidos.borrar', $usuario->id) }}" method="POST">
+            @csrf
+            @method('DELETE')
+            <button type="submit" class="btn btn-danger">Borrar todos los pedidos</button>
+        </form>
     @endif
 @endsection

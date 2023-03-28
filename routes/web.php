@@ -86,6 +86,10 @@ Route::group(['middleware' => 'auth'], function () {
     // PEDIR PRODUCTO
     Route::post('/pedir-producto/{id}', [OrderController::class, 'pedirProducto'])->name('products.order');
 
+    Route::delete('/usuarios/{id}/pedidos/borrar', [OrderController::class, 'borrarPedidosUsuario'])
+        ->where('id', '[0-9]+')
+        ->name('usuarios.pedidos.borrar');
+
     Route::fallback(function () {
         return view('errores.404');
     });

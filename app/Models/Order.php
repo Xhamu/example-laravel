@@ -9,6 +9,9 @@ class Order extends Model
 {
     use HasFactory;
 
+    protected $foreignKey = 'user_id';
+
+
     protected $fillable = ['user_id', 'product_id', 'cantidad'];
 
     public function user()

@@ -45,7 +45,7 @@ class Usuario extends Model implements Authenticatable, Authorizable
 
     public function orders()
     {
-        return $this->hasMany(Order::class);
+        return $this->hasMany(Order::class, 'user_id');
     }
 
     public function roles()
