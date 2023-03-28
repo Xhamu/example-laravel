@@ -48,11 +48,11 @@
                         </div>
 
                         <div class="form-group">
-                            <label for="imagen">Imagen del producto</label>
-                            <input type="file" name="imagen" id="imagen" placeholder="" value="{{ old('imagen') }}"
+                            <label for="image">Imagen del producto</label>
+                            <input type="file" name="image" id="image" placeholder="" value="{{ old('image') }}"
                                 class="form-control">
-                            @if ($errors->has('imagen'))
-                                <p class="small text-danger">{{ $errors->first('imagen') }}</p>
+                            @if ($errors->has('image'))
+                                <p class="small text-danger">{{ $errors->first('image') }}</p>
                             @endif
                         </div>
 

@@ -55,7 +55,6 @@ class UsuarioController extends Controller
         return view('usuarios.index', compact('titulo', 'usuarios', 'profesiones', 'usuarioActual'));
     }
 
-
     public function crear()
     {
         $profesions = Profesion::all();
@@ -208,7 +207,7 @@ class UsuarioController extends Controller
         }
 
         $precioTotal = $pedidos->sum(function ($pedido) {
-            return $pedido->product->price;
+            return $pedido->product->price * $pedido->cantidad;
         });
 
         return view('usuarios.pedidos', compact('pedidos', 'usuario', 'precioTotal'));

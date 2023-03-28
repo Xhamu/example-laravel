@@ -15,6 +15,7 @@ class OrderFactory extends Factory
         return [
             'product_id' => random_int(1, 20),
             'user_id' => random_int(1, 25),
+            'cantidad' => random_int(1, 10),
         ];
     }
 }

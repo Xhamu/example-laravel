@@ -4,6 +4,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\UsuarioController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\OrderController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -69,7 +70,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/productos/crear', [ProductController::class, 'crear'])
         ->name('products.crear')
         ->middleware('role:admin');
-    
+
     Route::post('productos', [ProductController::class, 'add'])
         ->name('products.add');
 
@@ -77,7 +78,7 @@ Route::group(['middleware' => 'auth'], function () {
         ->where('id', '[0-9]+')
         ->name('products.mostrar')
         ->middleware('role:admin');
-    
+
     Route::get('/productos/editar/{id}', [ProductController::class, 'editar'])
         ->where('id', '[0-9]+')
         ->name('products.editar');
@@ -87,6 +88,9 @@ Route::group(['middleware' => 'auth'], function () {
         ->name('products.update');
 
     Route::delete('/productos', [ProductController::class, 'delete'])->name('products.delete');
+
+    // PEDIR PRODUCTO
+    Route::post('/pedir-producto/{id}', [OrderController::class, 'pedirProducto'])->name('pedir-producto');
 
     Route::fallback(function () {
         return view('errores.404');
