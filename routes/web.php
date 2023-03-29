@@ -23,6 +23,10 @@ Route::get('/login', [LoginController::class, 'showLoginForm'])->name('login');
 
 Route::post('/login', [LoginController::class, 'login'])->name('login.post');
 
+Route::get('/register', [LoginController::class, 'register'])->name('login.crear');
+
+Route::post('/', [LoginController::class, 'registerPost'])->name('login.add');
+
 Route::group(['middleware' => 'auth'], function () {
 
     Route::get('/', HomeController::class);

@@ -23,35 +23,37 @@
             aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"> </span>
         </button>
-        <div class="navbar-brand">Bienvenido, {{ session('nombre') }}</div>
+        @if (session('nombre'))
+            <div class="navbar-brand">Bienvenido, {{ session('nombre') }}</div>
+        @endif
         @if (Auth::check() && session()->has('saldo'))
             <div class="navbar-brand ml-auto">Saldo actual: {{ session('saldo') }}$</div>
         @endif
         <a class="btn btn-danger ml-auto" href="/logout"><i class="bi bi-box-arrow-right"></i></a>
     </nav>
-
-    <div class="container-fluid">
-        <div class="row">
-            <nav class="col-3 col-md-2 d-none d-md-block bg-light sidebar">
-                <div class="sidebar-sticky">
-                    <ul class="nav flex-column">
-                        <li class="nav-item">
-                            <a class="nav-link" href="/usuarios">Usuarios</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="/productos">Productos</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link disabled" href="/profesiones">Profesiones</a>
-                        </li>
-                    </ul>
-                </div>
-            </nav>
-
-            <main role="main" class="col-9 col-md-10 ml-sm-auto px-4">
-                @yield('content')
-            </main>
-        </div>
+    @if (session('nombre'))
+        <div class="container-fluid">
+            <div class="row">
+                <nav class="col-3 col-md-2 d-none d-md-block bg-light sidebar">
+                    <div class="sidebar-sticky">
+                        <ul class="nav flex-column">
+                            <li class="nav-item">
+                                <a class="nav-link" href="/usuarios">Usuarios</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="/productos">Productos</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link disabled" href="/profesiones">Profesiones</a>
+                            </li>
+                        </ul>
+                    </div>
+                </nav>
+    @endif
+    <main role="main" class="col-9 col-md-10 ml-sm-auto px-4">
+        @yield('content')
+    </main>
+    </div>
     </div>
 
     <br />

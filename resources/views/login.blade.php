@@ -46,6 +46,9 @@
                             <div class="form-group">
                                 <button type="submit" class="btn btn-primary btn-block">Iniciar sesión</button>
                             </div>
+                            <div class="form-group">
+                                <a href="/register" class="btn btn-primary btn-block">Registrarse</a>
+                            </div>
                         </form>
                     </div>
                 </div>
